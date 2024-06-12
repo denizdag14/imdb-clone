@@ -4,6 +4,7 @@ import {FiThumbsUp} from 'react-icons/fi'
 
 export default function Card({result, genre}) {
     let mediaType;
+    console.log(genre);
     switch (genre) {
         case 'fetchTrending':
             mediaType = '/trending/all/week';
@@ -14,8 +15,6 @@ export default function Card({result, genre}) {
         case 'fetchTopRatedTvSeries':
             mediaType = 'tv';
             break;
-        default:
-            throw new Error('Invalid genre');
     }
   return (
     <div className="group cursor-pointer sm:hover:shadow-slate-400 sm:shadow-md rounded-lg sm:border sm:border-slate-400 sm:m-2 transition-shadow duration-200">
