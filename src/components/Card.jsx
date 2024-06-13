@@ -4,7 +4,6 @@ import {FiThumbsUp} from 'react-icons/fi'
 
 export default function Card({result, genre}) {
     let mediaType;
-    console.log(genre);
     switch (genre) {
         case 'fetchTrending':
             mediaType = '/trending/all/week';
