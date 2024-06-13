@@ -15,7 +15,7 @@ export default function Header() {
             <DarkModeSwitch />
             <Link href={'/'} className="flex gap-1 items-center">
                 <span className="text-2xl font-bold bg-yellow-400 py-1 px-2 rounded-md dark:text-black text-black">IMDb</span>
-                <span className="text-xl hidden sm:inline font-mono font-light">clone</span>
+                <span className="text-xl hidden sm:inline mt-1">Clone</span>
             </Link>
         </div>
     </div>
