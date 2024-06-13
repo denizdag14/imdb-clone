@@ -12,7 +12,7 @@ export default function SearchBox() {
       setSearch("");
     };
   return (
-    <form className='flex justify-between px-5 max-w-6xl mx-auto pt-4' onSubmit={handleSubmit}>
+    <form className='flex justify-between px-5 max-w-4xl mx-auto pt-4' onSubmit={handleSubmit}>
         <input type="text" placeholder="Search keyword..." 
         className="w-full h-11 rounded-md placeholder-gray-500 outline-none bg-transparent flex-1" 
         value={search} 

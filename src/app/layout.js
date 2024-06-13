@@ -8,7 +8,7 @@ import Providers from "./Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "IMDb suDEniz",
+  title: "IMDb clone",
   description: "This is a movie db clone",
 };
 
