@@ -34,7 +34,7 @@ export default function Results({results, genre, total_pages, currentPage}) {
   const numberOfPages = total_pages
   return (
     <>
-      <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 max-w-6xl mx-auto py-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 max-w-6xl mx-auto py-4">
         {
             results.map((result) => (
               <>

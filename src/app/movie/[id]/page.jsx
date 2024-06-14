@@ -16,16 +16,20 @@ export default async function MoviePage({params}) {
     );
     const movie = await response.json();
     const leadingRoles = movie.credits.cast.slice(0, 9);
-    console.log(movie)
+    const imageUrl = movie.poster_path 
+        ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+        : movie.backdrop_path 
+            ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+            : "/no_image_available.jpg";
   return (
     <div className="w-full">
         <div className='p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6'>
             
             <Image
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path || movie.backdrop_path}`}
+                src={imageUrl}
                 width={500} height={300}
                 className='rounded-lg'
-                alt=''
+                alt="no image found"
                 style={{maxWidth: '100%', height: '100%'}}
             >
             </Image>
@@ -38,7 +42,7 @@ export default async function MoviePage({params}) {
                 </p>
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaStar className="h-5 mr-2" />Rating:</span>
-                    {movie.vote_count}
+                    {Math.round(movie.vote_average * 10) / 10}
                 </p>
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-green-500'><FaDollarSign className="h-5 mr-2" /> Revenue:</span>
@@ -48,10 +52,11 @@ export default async function MoviePage({params}) {
                     <span className='font-semibold mr-1 flex text-yellow-500'><FaUser className="h-5 mr-2" />Cast:</span>
                 </div>
                 <div className='mb-3 flex flex-wrap'>
-                    {leadingRoles.map(actor => (
-                        <Link href="" key={actor.cast_id} className="shadow-2xl rounded-lg p-2 m-2 flex flex-col items-center w-44 dark:hover:bg-slate-800 hover:bg-slate-200">
-                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{actor.character}</div>
-                            <div className='text-sm dark:text-white mt-2'>{actor.name}</div>
+                    {leadingRoles.map(person => (
+                        <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-44 dark:hover:bg-slate-800 hover:bg-slate-200">
+                            <Image className="rounded-t-lg mb-2" src={`https://image.tmdb.org/t/p/original/${person.profile_path}`} width={500} height={500} alt=""></Image>
+                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character}</div>
+                            <div className='text-sm dark:text-white mt-2'>{person.name}</div>
                         </Link>
                     ))}
                 </div>

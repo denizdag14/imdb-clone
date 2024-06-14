@@ -8,12 +8,16 @@ export default async function SeriesPage({params}) {
     );
     const series = await response.json();
     const leadingRoles = series.credits.cast.slice(0, 9);
-    console.log(series)
+    const imageUrl = series.poster_path 
+        ? `https://image.tmdb.org/t/p/original/${series.poster_path}`
+        : series.backdrop_path 
+            ? `https://image.tmdb.org/t/p/original/${series.backdrop_path}`
+            : "/no_image_available.jpg";
   return (
     <div className="w-full">
         <div className='p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6'>
             <Image
-                src={`https://image.tmdb.org/t/p/original/${series.poster_path || series.backdrop_path}`}
+                src={imageUrl}
                 width={500} height={300}
                 className='rounded-lg shadow-2xl'
                 alt=''
@@ -28,16 +32,17 @@ export default async function SeriesPage({params}) {
                 </p>
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaStar className="h-5 mr-2" />Rating:</span>
-                    {series.vote_count}
+                    {Math.round(series.vote_average * 10) / 10}
                 </p>
                 <div className='mb-3 flex justify-center'>
                     <span className='font-semibold mr-1 flex text-yellow-500'><FaUser className="h-5 mr-2" />Cast:</span>
                 </div>
                 <div className='mb-3 flex flex-wrap'>
-                    {leadingRoles.map(actor => (
-                        <Link href="" key={actor.cast_id} className="shadow-2xl rounded-lg p-2 m-2 flex flex-col items-center w-44 dark:hover:bg-slate-800 hover:bg-slate-200">
-                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{actor.character}</div>
-                            <div className='text-sm dark:text-white mt-2'>{actor.name}</div>
+                    {leadingRoles.map(person => (
+                        <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-44 dark:hover:bg-slate-800 hover:bg-slate-200">
+                            <Image className="rounded-t-lg mb-2" src={`https://image.tmdb.org/t/p/original/${person.profile_path}`} width={500} height={500} alt=""></Image>
+                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character}</div>
+                            <div className='text-sm dark:text-white mt-2'>{person.name}</div>
                         </Link>
                     ))}
                 </div>

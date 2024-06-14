@@ -14,15 +14,26 @@ export default function Card({result, genre}) {
         case 'fetchTopRatedTvSeries':
             mediaType = 'tv';
             break;
+        case 'movie':
+            mediaType = 'movie';
+            break;
+        case 'tv':
+            mediaType = 'tv';
+            break;
     }
+    const imageUrl = result.poster_path 
+        ? `https://image.tmdb.org/t/p/original/${result.poster_path}`
+        : result.backdrop_path 
+            ? `https://image.tmdb.org/t/p/original/${result.backdrop_path}`
+            : "/no_image_available.jpg";
   return (
     <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
         <Link href= {result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
             <Image 
-                src={`https://image.tmdb.org/t/p/original/${result.poster_path || result.backdrop_path}`}
+                src={imageUrl}
                 width={500} height={300} 
-                className="h-80 rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
-                alt="">
+                className="rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
+                alt="no_image_available.svg">
             </Image>
             <div className="p-2">
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>

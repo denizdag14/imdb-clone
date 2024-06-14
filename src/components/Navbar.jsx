@@ -9,7 +9,7 @@ export default function Navbar() {
           <Suspense fallback={<div>Loading...</div>}>
             <NavbarItem title="Trending" param="fetchTrending"/>
             <NavbarItem title="Top Rated Movies" param="fetchTopRatedMovie" />
-            <NavbarItem title="Top Rated Tv Series" param="fetchTopRatedTvSeries" />
+            <NavbarItem title="Top Rated Tv Series & Shows" param="fetchTopRatedTvSeries" />
           </Suspense>
     </div>
   )
