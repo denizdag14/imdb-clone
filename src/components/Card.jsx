@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import {FiThumbsUp} from 'react-icons/fi'
+import { FaStar, FaRegCalendarAlt } from "react-icons/fa";
 
 export default function Card({result, genre}) {
     let mediaType;
@@ -16,22 +16,26 @@ export default function Card({result, genre}) {
             break;
     }
   return (
-    <div className="group cursor-pointer sm:hover:shadow-slate-400 sm:shadow-md rounded-lg sm:border sm:border-slate-400 sm:m-2 transition-shadow duration-200">
+    <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
         <Link href= {result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
             <Image 
-                src={`https://image.tmdb.org/t/p/original/${result.backdrop_path || result.poster_path}`}
+                src={`https://image.tmdb.org/t/p/original/${result.poster_path || result.backdrop_path}`}
                 width={500} height={300} 
-                className="sm:rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
+                className="h-80 rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
                 alt="">
             </Image>
             <div className="p-2">
-                <h2 className="text-lg font-bold truncate">{result.title || result.name}</h2>
+                <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
                 <hr className="my-2 border-slate-400"/>
                 <p className="line-clamp-2 text-md">{result.overview}</p>
-                <p className="flex items-center ">
-                    {result.release_date || result.first_air_date}
-                    <FiThumbsUp className="h-5 mr-1 ml-3"/> {result.vote_count}
-                </p>
+                <div className="flex items-center justify-between mt-4">
+                    <p className="flex items-center text-sm">
+                        <FaRegCalendarAlt className="h-5 mr-1"/> {result.release_date || result.first_air_date}
+                    </p>
+                    <p className="flex items-center text-sm">
+                        <FaStar className="h-5 mr-1 text-yellow-500 "/> {Math.round(result.vote_average * 10) / 10}
+                    </p>
+                </div>
             </div>
         </Link>
     </div>
