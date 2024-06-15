@@ -38,10 +38,10 @@ export default function PersonPageCard({result, genre}) {
             <div className="p-2">
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
                 <hr className="my-2 border-slate-400"/>
-                {/* <p className="line-clamp-2 text-md">{result.overview}</p> */}
+                <p className="line-clamp-2 text-md text-center">as {result.character}</p>
                 <div className="flex items-center justify-between mt-4">
                     <p className="flex items-center text-xs sm:text-sm">
-                        <FaRegCalendarAlt className="h-5 mr-1"/> {result.release_date || result.first_air_date}
+                        <FaRegCalendarAlt className="h-5 mr-1"/> {result.episode_count !== null ? (result.episode_count) : (result.release_date)}
                     </p>
                     <p className="flex items-center text-sm">
                         <FaStar className="h-5 mr-1 text-yellow-500 "/> {Math.round(result.vote_average * 10) / 10}

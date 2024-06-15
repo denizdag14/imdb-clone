@@ -4,11 +4,13 @@ import { FaRegCalendarAlt, FaTv, FaTransgender } from 'react-icons/fa';
 
 export default async function PersonPage({params}) {
     const personId = params.id;
-    const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.API_KEY}&language=en-US&append_to_response=movie_credits,tv_credits`
+    const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.API_KEY}&language=en-US&append_to_response=movie_credits,tv_credits&sort_by=popularity.desc`
     );
     const person = await response.json();
     const movies = person.movie_credits.cast;
+    movies.sort((a, b) => b.popularity - a.popularity);
     const tv = person.tv_credits.cast;
+    tv.sort((a, b) => b.episode_count - a.episode_count);
     const uniqueTvShowIds = Array.from(new Set(tv.map(show => show.id)));
     const tvShowList = uniqueTvShowIds.map(id => tv.find(show => show.id === id));
     const gender = person.gender === 1 ? 'Female' : (person.gender === 2 ? 'Male' : 'Non-binary');
