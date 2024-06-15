@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PersonPageCard from "@/components/Card";
-import { FaRegCalendarAlt, FaStar, FaTv } from 'react-icons/fa';
+import { FaRegCalendarAlt, FaTv, FaTransgender } from 'react-icons/fa';
 
 export default async function PersonPage({params}) {
     const personId = params.id;
@@ -11,6 +11,7 @@ export default async function PersonPage({params}) {
     const tv = person.tv_credits.cast;
     const uniqueTvShowIds = Array.from(new Set(tv.map(show => show.id)));
     const tvShowList = uniqueTvShowIds.map(id => tv.find(show => show.id === id));
+    const gender = person.gender === 1 ? 'Female' : (person.gender === 2 ? 'Male' : 'Non-binary');
   return (
     <>
         <div className="w-full">
@@ -30,8 +31,8 @@ export default async function PersonPage({params}) {
                     {person.birthday}
                 </p>
                 <p className='mb-3 flex'>
-                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaStar className="h-5 mr-2" />Popularity:</span>
-                    {person.popularity}
+                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaTransgender  className="h-5 mr-2" />Gender:</span>
+                    {gender}
                 </p>
             </div>
         </div>
