@@ -25,7 +25,7 @@ export default async function SeriesPage({params}) {
             />
             <div className='p-2'>
                 <h2 className='text-lg text-center uppercase mb-3 font-bold border-b dark:border-white border-b-black text-yellow-500'>{series.title || series.name}</h2>
-                <p className='text-lg mb-3'>{series.overview}</p>
+                <p className='text-sm md:text-base lg:text-lg mb-3'>{series.overview}</p>
                 <p className='mb-3 flex'>
                     {series.status !== 'In Production' && (
                         <>
