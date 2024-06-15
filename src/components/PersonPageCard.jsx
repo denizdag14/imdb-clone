@@ -27,7 +27,7 @@ export default function PersonPageCard({result, genre}) {
             ? `https://image.tmdb.org/t/p/original/${result.backdrop_path}`
             : "/no_image_available.jpg";
   return (
-    <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
+    <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 w-44 md:w-40 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
         <Link href= {result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
             <Image 
                 src={imageUrl}
@@ -38,9 +38,9 @@ export default function PersonPageCard({result, genre}) {
             <div className="p-2">
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
                 <hr className="my-2 border-slate-400"/>
-                <p className="line-clamp-2 text-md">{result.overview}</p>
+                {/* <p className="line-clamp-2 text-md">{result.overview}</p> */}
                 <div className="flex items-center justify-between mt-4">
-                    <p className="flex items-center text-sm">
+                    <p className="flex items-center text-xs sm:text-sm">
                         <FaRegCalendarAlt className="h-5 mr-1"/> {result.release_date || result.first_air_date}
                     </p>
                     <p className="flex items-center text-sm">

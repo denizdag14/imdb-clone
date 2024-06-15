@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaRegCalendarAlt, FaStar, FaDollarSign, FaUser } from 'react-icons/fa';
+import { FaRegCalendarAlt, FaStar, FaDollarSign, FaUser, FaInfoCircle  } from 'react-icons/fa';
 
 export default async function MoviePage({params}) {
 
@@ -37,8 +37,19 @@ export default async function MoviePage({params}) {
                 <h2 className='text-lg text-center uppercase mb-3 font-bold border-b dark:border-white border-b-black text-yellow-500'>{movie.title || movie.name}</h2>
                 <p className='text-lg mb-3'>{movie.overview}</p>
                 <p className='mb-3 flex'>
-                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaRegCalendarAlt  className="h-5 mr-2" />Date Released:</span>
-                    {movie.release_date || movie.first_air_date}
+                {movie.status !== 'In Production' && (
+                    <>
+                        <span className='font-semibold mr-1 flex items-center text-yellow-500'>
+                            <FaRegCalendarAlt className="h-5 mr-2" />Date Released:
+                        </span>
+                        {movie.release_date || movie.first_air_date} 
+                    </>
+                )}
+                </p>
+                <p className="mb-3 flex">
+                    <span className='font-semibold mr-1 flex items-center text-yellow-500'>
+                    <FaInfoCircle className="h-5 mr-2" />Status: 
+                    </span> {movie.status}
                 </p>
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaStar className="h-5 mr-2" />Rating:</span>
@@ -56,7 +67,7 @@ export default async function MoviePage({params}) {
                         <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-44 dark:hover:bg-slate-800 hover:bg-slate-200">
                             <Image className="rounded-t-lg mb-2" src={`https://image.tmdb.org/t/p/original/${person.profile_path}`} width={500} height={500} alt=""></Image>
                             <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character}</div>
-                            <div className='text-sm dark:text-white mt-2'>{person.name}</div>
+                            <div className='text-sm dark:text-white m-2'>{person.name}</div>
                         </Link>
                     ))}
                 </div>
