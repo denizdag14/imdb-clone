@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Card from "@/components/Card";
+import PersonPageCard from "@/components/Card";
 import { FaRegCalendarAlt, FaStar, FaTv } from 'react-icons/fa';
 
 export default async function PersonPage({params}) {
@@ -46,7 +46,7 @@ export default async function PersonPage({params}) {
             <div className='flex flex-wrap justify-center'>
                 {movies.map(movie => (
                     <div key={movie.id} className="rounded-lg p-2 m-2 items-center w-44">
-                        <Card genre='movie' key={movie.id} result={movie}/>
+                        <PersonPageCard genre='movie' key={movie.id} result={movie}/>
                     </div>
                 ))}
             </div>
@@ -58,7 +58,7 @@ export default async function PersonPage({params}) {
             <div className='flex flex-wrap justify-center'>
                 {tvShowList.map(tvShow => (
                     <div key={tvShow.id} className="rounded-lg p-2 m-2 items-center w-44">
-                        <Card genre='tv' key={tvShow.id} result={tvShow} />
+                        <PersonPageCard genre='tv' key={tvShow.id} result={tvShow} />
                     </div>
                 ))}
             </div>

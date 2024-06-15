@@ -1,6 +1,10 @@
+import Link from "next/link"
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa"
+
 export default function About() {
   return (
-    <div className="max-w-6xl mx-auto p-3 space-y-4">
+    <>
+        <div className="max-w-6xl mx-auto p-3 space-y-4">
         <h1 className="text-2xl font-medium text-amber-600">About</h1>
         <p>
             Film veritabanı sitemize hoş geldiniz!
@@ -20,6 +24,19 @@ export default function About() {
             Geri bildiriminiz veya önerileriniz varsa, lütfen bizimle iletişime geçmekten çekinmeyin. 
             Her zaman kullanıcı deneyimini geliştirmek ve iyileştirmek için yollar arıyoruz. Keyifli gezintiler!
         </p>
-    </div>
+        </div>
+        <divc className="flex justify-center">
+            <span>Made by</span>
+            <Link legacyBehavior href="https://github.com/denizdag14" passHref>
+                <a className="flex items-center ml-2 text-yellow-500 font-bold" target="_blank" rel="noopener noreferrer"><FaGithub className="text-white mr-1" />denizdag</a>
+            </Link>
+            <Link legacyBehavior href="https://www.instagram.com/denizdag" passHref>
+                <a className="flex items-center ml-2 text-yellow-500 font-bold" target="_blank" rel="noopener noreferrer"><FaInstagram className="text-white mr-1" />denizdag</a>
+            </Link>
+            <Link legacyBehavior href="https://www.linkedin.com/in/denizdag14/" passHref>
+                <a className="flex items-center ml-2 text-yellow-500 font-bold" target="_blank" rel="noopener noreferrer"><FaLinkedin className="text-white mr-1" />denizdag</a>
+            </Link>
+        </divc>
+    </>
   )
 }
