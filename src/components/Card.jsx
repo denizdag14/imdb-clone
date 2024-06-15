@@ -14,6 +14,12 @@ export default function Card({result, genre}) {
         case 'fetchTopRatedTvSeries':
             mediaType = 'tv';
             break;
+        case 'fetchUpcomingMovie':
+            mediaType = 'movie';
+            break;
+        case 'fetchUpcomingTvSeries':
+            mediaType = 'tv';
+            break;       
         case 'movie':
             mediaType = 'movie';
             break;

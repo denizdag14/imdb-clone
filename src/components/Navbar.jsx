@@ -10,6 +10,8 @@ export default function Navbar() {
             <NavbarItem title="Trending" param="fetchTrending"/>
             <NavbarItem title="Top Rated Movies" param="fetchTopRatedMovie" />
             <NavbarItem title="Top Rated Tv Series & Shows" param="fetchTopRatedTvSeries" />
+            <NavbarItem title="Upcoming Movies" param="fetchUpcomingMovie" />
+            <NavbarItem title="Upcoming Tv Series & Shows" param="fetchUpcomingTvSeries" />
           </Suspense>
     </div>
   )
