@@ -64,7 +64,7 @@ export default async function Home({searchParams}) {
   };
   const results = data.results;
   const total_pages = (genre === 'fetchTrending' || genre === 'fetchTrendingPerson') ? 500 : data.total_pages;
-  
+
   return (
     <div>
       <Results results={results} genre={genre} total_pages={total_pages} currentPage={currentPage} />

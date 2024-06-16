@@ -1,8 +1,30 @@
 import Image from "next/image";
-import { FaRegCalendarAlt, FaTv, FaTransgender } from 'react-icons/fa';
+import { FaBriefcase, FaTv, FaTransgender, FaBirthdayCake, FaMapMarked, FaCross  } from 'react-icons/fa';
 import PersonJobCard from "@/components/PersonJobCard"
 
 export default async function PersonPage({params}) {
+
+    function calculateAge(birthdayString, deathdayString) {
+        const today = new Date();
+        const birthday = new Date(birthdayString);
+        let age;
+        if (deathdayString !== "" && deathdayString !== null) {
+            const deathday = new Date(deathdayString);
+            age = deathday.getFullYear() - birthday.getFullYear();
+        } else {
+            // Ölüm tarihi bilgisi yoksa veya boşsa
+            age = today.getFullYear() - birthday.getFullYear();
+            const monthDifference = today.getMonth() - birthday.getMonth();
+            const dayDifference = today.getDate() - birthday.getDate();
+        
+            if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                age--;
+            }
+        }
+    
+        return age;
+    }
+
     const personId = params.id;
     const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.API_KEY}&language=en-US&append_to_response=movie_credits,tv_credits`
     );
@@ -13,6 +35,7 @@ export default async function PersonPage({params}) {
     tv.sort((a, b) => b.episode_count - a.episode_count); //Sort tv series by person's episode count
     const uniqueTvShowIds = Array.from(new Set(tv.map(show => show.id)));
     const tvShowList = uniqueTvShowIds.map(id => tv.find(show => show.id === id));
+    console.log(person);
   return (
     <>
         <div className="w-full">
@@ -32,8 +55,34 @@ export default async function PersonPage({params}) {
                         ))}
                     </div>
                     <p className='mb-3 flex'>
-                        <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaRegCalendarAlt  className="h-5 mr-2" />Birthday:</span>
-                        {person.birthday}
+                        <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBriefcase  className="h-5 mr-2" />Known job:</span>
+                        {person.known_for_department}
+                    </p>
+                    <p className='mb-3 flex'>
+                        <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaMapMarked  className="h-5 mr-2" />Place of birth:</span>
+                        {person.place_of_birth}
+                    </p>
+                    <p className='mb-3'>
+                        {person.deathday ? (
+                            <>
+                                <div className="mb-3 flex">
+                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
+                                    {person.birthday}
+                                </div>
+                                <div className="flex">
+                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaCross  className="h-5 mr-2" />Deathday:</span>
+                                    {person.deathday} (at the age of {(calculateAge(person.birthday, person.deathday))})
+                                </div>    
+                            </>
+                        ) : (
+                            <>
+                                <div className="flex">
+                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
+                                    {person.birthday} ({calculateAge(person.birthday, person.deathday)} years old)
+                                </div>
+                            </>
+                        )}
+                        
                     </p>
                     <p className='mb-3 flex'>
                         <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaTransgender  className="h-5 mr-2" />Gender:</span>

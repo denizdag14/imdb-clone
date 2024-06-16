@@ -21,7 +21,6 @@ export default async function MoviePage({params}) {
         : movie.backdrop_path 
             ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
             : "/no_image_available.jpg";
-            console.log(movie);
   return (
     <div className="w-full">
         <div className='p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6'>
@@ -96,7 +95,7 @@ export default async function MoviePage({params}) {
                     {leadingRoles.map(person => (
                         <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-28 dark:hover:bg-slate-800 hover:bg-slate-200 hover:w-32 hover:shadow-black">
                             <Image className="rounded-t-lg mb-2" src={person.profile_path ? `https://image.tmdb.org/t/p/original/${person.profile_path}` : "/no_image_available.jpg"} width={500} height={500} alt=""></Image>
-                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'><span className="text-sm text-white font-light mr-1">as</span>{person.character}</div>
+                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character ? <>as {person.character}</> : '-'}</div>
                             <div className='text-sm text-center dark:text-white m-2'>{person.name}</div>
                         </Link>
                     ))}
