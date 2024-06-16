@@ -39,7 +39,7 @@ export default function Card({result, genre}) {
                 src={imageUrl}
                 width={500} height={300} 
                 className="rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
-                alt="no_image_available.svg">
+                alt="">
             </Image>
             <div className="p-2">
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
