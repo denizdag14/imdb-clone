@@ -26,7 +26,7 @@ export default async function SeriesPage({params}) {
             <div className='p-2'>
                 <h2 className='text-lg text-center uppercase mb-3 font-bold border-b dark:border-white border-b-black text-yellow-500'>{series.title || series.name}</h2>
                 <p className="text-center italic mb-2">{series.tagline !== "" && ('\'' + series.tagline + '\'')}</p>
-                <p className='text-sm md:text-base lg:text-lg mb-3'>{series.overview}</p>
+                <p className='text-sm md:text-base lg:text-lg mb-3' style={{ textAlign: 'justify' }}>{series.overview}</p>
                 <p className='mb-3 flex'>
                     {series.status !== 'In Production' && (
                         <>
@@ -67,15 +67,29 @@ export default async function SeriesPage({params}) {
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaFlag className="h-5 mr-2" />Origin Country:</span>
                     {series.production_countries.map((country, index) => (
-                    <span key={index}>
-                        {index > 0 && ', '}
-                        {country.name}
+                    <span key={index} className="network-item flex items-center mr-2">
+                        {series.origin_country.toString() === country.iso_3166_1.toString() && (
+                            <span className="">{country.name}</span>
+                        )}
                     </span>
                     ))}
                 </p>
                 <p className='mb-3 flex'>
                     <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaTv className="h-5 mr-2" />Network:</span>
-                    {series.networks.map(network => network.name)}
+                    {series.networks.map(network => (
+                        <span key={network.id} className="network-item flex items-center mr-2">
+                        {network.logo_path ? (
+                            <Image
+                            src={`https://image.tmdb.org/t/p/original${network.logo_path}`}
+                            alt={network.name}
+                            width={50}
+                            height={50}
+                            />
+                        ) : (
+                            <span>{network.name}</span>
+                        )}
+                        </span>
+                    ))}
                 </p>
                 <div className='mb-3 flex justify-center'>
                     <span className='font-semibold mr-1 flex text-yellow-500'><FaUser className="h-5 mr-2" />Cast:</span>
@@ -83,8 +97,8 @@ export default async function SeriesPage({params}) {
                 <div className='mb-3 flex flex-wrap'>
                     {leadingRoles.map(person => (
                         <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-28 dark:hover:bg-slate-800 hover:bg-slate-200 hover:w-32 hover:shadow-black">
-                            <Image className="rounded-t-lg mb-2" src={`https://image.tmdb.org/t/p/original/${person.profile_path}`} width={500} height={500} alt=""></Image>
-                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character}</div>
+                            <Image className="rounded-t-lg mb-2" src={person.profile_path ? `https://image.tmdb.org/t/p/original/${person.profile_path}` : "/no_image_available.jpg"} width={500} height={500} alt=""></Image>
+                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'><span className="text-sm text-white font-light mr-1">as</span>{person.character}</div>
                             <div className='text-sm text-center dark:text-white m-2'>{person.name}</div>
                         </Link>
                     ))}

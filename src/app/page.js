@@ -24,6 +24,9 @@ export default async function Home({searchParams}) {
       case 'fetchTrending':
           endpoint = '/trending/all/week';
           break;
+      case 'fetchTrendingPerson':
+          endpoint = '/trending/person/week';
+          break;
       case 'fetchTopRatedMovie':
           endpoint = '/movie/top_rated';
           break;
@@ -45,6 +48,8 @@ export default async function Home({searchParams}) {
     url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&language=en-US&page=${currentPage}&primary_release_date.gte=` + todayDate + `&primary_release_date.lte=` + nextMonthDate + `&sort_by=primary_release_date.asc`;
   } else if(endpoint === '/discover/tv'){
     url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&language=en-US&page=${currentPage}&first_air_date.gte=` + todayDate + `&first_air_date.lte=` + nextMonthDate + `&sort_by=first_air_date.asc`;
+  } else if(endpoint === '/trending/all/week'){
+    url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&language=en-US&page=${currentPage}&media_type=movie,tv`;
   } else {
     url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
   }
@@ -58,8 +63,7 @@ export default async function Home({searchParams}) {
     throw new Error('Failed to fetch data')
   };
   const results = data.results;
-  var total_pages;
-  genre === 'fetchTrending' ? (total_pages = 500) : (total_pages = data.total_pages)
+  const total_pages = (genre === 'fetchTrending' || genre === 'fetchTrendingPerson') ? 500 : data.total_pages;
   
   return (
     <div>

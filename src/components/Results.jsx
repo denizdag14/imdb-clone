@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link';
 import Card from "./Card";
 import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight } from 'react-icons/fa';
+import PersonPageCard from './PersonPageCard';
 
 export default function Results({results, genre, total_pages, currentPage}) {
 
@@ -38,7 +39,11 @@ export default function Results({results, genre, total_pages, currentPage}) {
         {
             results.map((result) => (
               <>
-                <Card genre={genre} key={result.id} result={result} />
+                {
+                  genre === 'fetchTrendingPerson' 
+                    ? <PersonPageCard genre={genre} key={result.id} result={result} />
+                    : <Card genre={genre} key={result.id} result={result} />
+                }
               </>
             ))
         }
