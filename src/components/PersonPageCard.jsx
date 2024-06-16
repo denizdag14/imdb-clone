@@ -21,14 +21,16 @@ export default function PersonPageCard({result, genre}) {
             mediaType = 'tv';
             break;
     }
-    const imageUrl = result.profile_path 
-        ? `https://image.tmdb.org/t/p/original/${result.profile_path}`
-            : "/no_image_available.jpg";
+    // const imageUrl = result.profile_path 
+    //     ? `https://image.tmdb.org/t/p/original/${result.profile_path}`
+    //         : "/no_image_available.jpg";
   return (
     <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 w-44 md:w-40 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
         <Link href= {result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
             <Image 
-                src={imageUrl}
+                src={result.profile_path 
+                    ? `https://image.tmdb.org/t/p/original/${result.profile_path}`
+                        : "/no_image_available.jpg"}
                 width={500} height={300}
                 className="rounded-t-lg group-hover:opacity-75 transition-opacity duration-300" 
                 alt="">
