@@ -40,7 +40,7 @@ export default function Results({results, genre, total_pages, currentPage}) {
             results.map((result) => (
               <>
                 {
-                  genre === 'fetchTrendingPerson' 
+                  result.media_type === 'person'
                     ? <PersonPageCard genre={genre} key={result.id} result={result} />
                     : <Card genre={genre} key={result.id} result={result} />
                 }

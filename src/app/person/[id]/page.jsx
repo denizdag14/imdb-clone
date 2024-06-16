@@ -62,28 +62,25 @@ export default async function PersonPage({params}) {
                         <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaMapMarked  className="h-5 mr-2" />Place of birth:</span>
                         {person.place_of_birth}
                     </p>
-                    <p className='mb-3'>
-                        {person.deathday ? (
-                            <>
-                                <div className="mb-3 flex">
-                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
-                                    {person.birthday}
-                                </div>
-                                <div className="flex">
-                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaCross  className="h-5 mr-2" />Deathday:</span>
-                                    {person.deathday} (at the age of {(calculateAge(person.birthday, person.deathday))})
-                                </div>    
-                            </>
-                        ) : (
-                            <>
-                                <div className="flex">
-                                    <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
-                                    {person.birthday} ({calculateAge(person.birthday, person.deathday)} years old)
-                                </div>
-                            </>
-                        )}
-                        
-                    </p>
+                    {person.deathday ? (
+                        <>
+                            <p className="mb-3 flex">
+                                <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
+                                {person.birthday}
+                            </p>
+                            <p className="flex">
+                                <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaCross  className="h-5 mr-2" />Deathday:</span>
+                                {person.deathday} (at the age of {(calculateAge(person.birthday, person.deathday))})
+                            </p>    
+                        </>
+                    ) : (
+                        <>
+                            <p className="mb-3 flex">
+                                <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
+                                {person.birthday} ({calculateAge(person.birthday, person.deathday)} years old)
+                            </p>
+                        </>
+                    )}
                     <p className='mb-3 flex'>
                         <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaTransgender  className="h-5 mr-2" />Gender:</span>
                         {person.gender === 1 ? 'Female' : (person.gender === 2 ? 'Male' : 'Non-binary')}
