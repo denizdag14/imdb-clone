@@ -49,7 +49,19 @@ export default function Card({result, genre}) {
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
                 <hr className="my-2 border-slate-400"/>
                 <p className="line-clamp-2 text-md text-center">
-                    {result.character ? <>as {result.character}</> : result.known_for_department !== 'Acting' ? <>{result.job}</> : '-'}
+                    {result.job ? (
+                        result.job ? (
+                            <>{result.job}</>
+                        ) : (
+                            '-'
+                        )
+                        ) : (
+                        result.character ? (
+                            <>as {result.character}</>
+                        ) : (
+                            '-'
+                        )
+                    )}
                 </p>
                 <div className="flex items-center justify-between mt-4">
                     <p className="flex items-center text-sm">
