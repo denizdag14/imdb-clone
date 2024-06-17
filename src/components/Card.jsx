@@ -34,7 +34,7 @@ export default function Card({result, genre}) {
     //         : "/no_image_available.jpg";
   return (
 
-    <div className="group cursor-pointer shadow-lg rounded-lg m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-transform transform duration-200 hover:scale-105 hover:dark:bg-zinc-900 hover:bg-gray-100">
+    <div className="group cursor-pointer shadow-lg rounded-lg m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-transform transform duration-200 hover:scale-105 hover:dark:bg-zinc-800 hover:bg-gray-100">
       <Link href={result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
         <Image 
           src={result.poster_path 
