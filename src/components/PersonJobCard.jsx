@@ -33,7 +33,7 @@ export default function Card({result, genre}) {
     //         ? `https://image.tmdb.org/t/p/original/${result.backdrop_path}`
     //         : "/no_image_available.jpg";
   return (
-    <div className="group cursor-pointer hover:shadow-slate-400 shadow-lg rounded-lg sm:border-slate-400 m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-shadow duration-200">
+    <div className="group cursor-pointer shadow-lg rounded-lg m-6 sm:m-6 md:m-4 lg:m-2 mb-14 transition-transform transform duration-200 hover:scale-105 hover:dark:bg-zinc-900 hover:bg-gray-100">
         <Link href= {result.media_type ? `/${result.media_type}/${result.id}` : `/${mediaType}/${result.id}`}>
             <Image 
                 src={result.poster_path 
@@ -48,7 +48,9 @@ export default function Card({result, genre}) {
             <div className="p-2">
                 <h2 className="text-lg text-center text-yellow-500 font-bold truncate">{result.title || result.name}</h2>
                 <hr className="my-2 border-slate-400"/>
-                <p className="line-clamp-2 text-md text-center">{result.character ? <>as {result.character}</> : '-'}</p>
+                <p className="line-clamp-2 text-md text-center">
+                    {result.character ? <>as {result.character}</> : result.known_for_department !== 'Acting' ? <>{result.job}</> : '-'}
+                </p>
                 <div className="flex items-center justify-between mt-4">
                     <p className="flex items-center text-sm">
                         {result.episode_count ? (<><FaList className="h-5 mr-1"/> {result.episode_count} episode</>) : (<><FaRegCalendarAlt className="h-5 mr-1"/> {result.release_date}</>)}

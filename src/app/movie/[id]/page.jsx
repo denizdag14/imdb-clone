@@ -93,9 +93,9 @@ export default async function MoviePage({params}) {
                 </div>
                 <div className='mb-3 flex flex-wrap'>
                     {leadingRoles.map(person => (
-                        <Link href={`/person/${person.id}`} key={person.cast_id} className="shadow-2xl rounded-lg m-2 flex flex-col items-center w-28 dark:hover:bg-slate-800 hover:bg-slate-200 hover:w-32 hover:shadow-black">
+                        <Link href={`/person/${person.id}`} key={person.cast_id} className="rounded-2xl hover:dark:bg-zinc-800 shadow-2xl m-2 flex flex-col items-center w-28 transition-transform transform duration-200 hover:scale-105 hover:bg-gray-100">
                             <Image className="rounded-t-lg mb-2" src={person.profile_path ? `https://image.tmdb.org/t/p/original/${person.profile_path}` : "/no_image_available.jpg"} width={500} height={500} alt=""></Image>
-                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character ? <>as {person.character}</> : '-'}</div>
+                            <div className='text-yellow-600 text-sm font-bold border-b border-slate-500 w-full text-center pb-1'>{person.character ? <><span className="text-sm dark:text-white text-black font-light">as</span> {person.character}</> : '-'}</div>
                             <div className='text-sm text-center dark:text-white m-2'>{person.name}</div>
                         </Link>
                     ))}

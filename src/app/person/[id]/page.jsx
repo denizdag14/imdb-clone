@@ -2,40 +2,54 @@ import Image from "next/image";
 import { FaBriefcase, FaTv, FaTransgender, FaBirthdayCake, FaMapMarked, FaCross  } from 'react-icons/fa';
 import PersonJobCard from "@/components/PersonJobCard"
 
-export default async function PersonPage({params}) {
-
-    function calculateAge(birthdayString, deathdayString) {
-        const today = new Date();
-        const birthday = new Date(birthdayString);
-        let age;
-        if (deathdayString !== "" && deathdayString !== null) {
-            const deathday = new Date(deathdayString);
-            age = deathday.getFullYear() - birthday.getFullYear();
-        } else {
-            // Ölüm tarihi bilgisi yoksa veya boşsa
-            age = today.getFullYear() - birthday.getFullYear();
-            const monthDifference = today.getMonth() - birthday.getMonth();
-            const dayDifference = today.getDate() - birthday.getDate();
-        
-            if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
-                age--;
-            }
-        }
+function calculateAge(birthdayString, deathdayString) {
+    const today = new Date();
+    const birthday = new Date(birthdayString);
+    let age;
+    if (deathdayString !== "" && deathdayString !== null) {
+        const deathday = new Date(deathdayString);
+        age = deathday.getFullYear() - birthday.getFullYear();
+    } else {
+        // Ölüm tarihi bilgisi yoksa veya boşsa
+        age = today.getFullYear() - birthday.getFullYear();
+        const monthDifference = today.getMonth() - birthday.getMonth();
+        const dayDifference = today.getDate() - birthday.getDate();
     
-        return age;
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+            age--;
+        }
     }
+
+    return age;
+}
+
+export default async function PersonPage({params}) {
 
     const personId = params.id;
     const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.API_KEY}&language=en-US&append_to_response=movie_credits,tv_credits`
     );
     const person = await response.json();
-    const movies = person.movie_credits.cast;
+    const movies = person.known_for_department === 'Acting' ? person.movie_credits.cast : person.movie_credits.crew;
     movies.sort((a, b) => b.popularity - a.popularity); //Sort movies by their popularity
-    const tv = person.tv_credits.cast;
+    const uniqueMovieIds = Array.from(new Set(movies.map(show => show.id)));
+    // const movieList = uniqueMovieIds.map(id => movies.find(show => show.id === id));
+    const movieList = person.known_for_department !== 'Acting' ? uniqueMovieIds.map(id => {
+        const groupedMovies = movies.filter(movie => movie.id === id);
+        const combinedJobs = groupedMovies.map(movie => movie.department).join(', ');
+        const firstMovie = groupedMovies[0];
+        firstMovie.job = combinedJobs;
+        return firstMovie;
+      }) : movies;
+    const tv = person.known_for_department === 'Acting' ? person.tv_credits.cast : person.tv_credits.crew;
     tv.sort((a, b) => b.episode_count - a.episode_count); //Sort tv series by person's episode count
     const uniqueTvShowIds = Array.from(new Set(tv.map(show => show.id)));
-    const tvShowList = uniqueTvShowIds.map(id => tv.find(show => show.id === id));
-    console.log(person);
+    const tvShowList = person.known_for_department !== 'Acting' ? uniqueTvShowIds.map(id => {
+        const groupedTvSeries = tv.filter(series => series.id === id);
+        const combinedJobs = groupedTvSeries.map(series => series.department).join(', ');
+        const firstTv = groupedTvSeries[0];
+        firstTv.job = combinedJobs;
+        return firstTv;
+      }) : tv;
   return (
     <>
         <div className="w-full">
@@ -96,7 +110,7 @@ export default async function PersonPage({params}) {
             <div className='flex-1'>
                 <h2 className='text-center font-bold'>Movies</h2>
                 <div className='flex flex-wrap justify-center'>
-                    {movies.map(movie => (
+                    {movieList.map(movie => (
                         <div key={movie.id} className="rounded-lg m-2 items-center w-44">
                             <PersonJobCard genre='movie' key={movie.id} result={movie}/>
                         </div>
