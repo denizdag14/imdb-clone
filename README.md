@@ -20,4 +20,4 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-You can visit my IMDb clone from here: [http://imdb-clone-denizdag.vercel.app](http://imdb-clone-denizdag.vercel.app).
+You can visit my IMDb clone from here: [IMDb clone](http://imdb-clone-denizdag.vercel.app).
