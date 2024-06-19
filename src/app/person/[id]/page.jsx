@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { FaBriefcase, FaTv, FaTransgender, FaBirthdayCake, FaMapMarked, FaCross  } from 'react-icons/fa';
+import { FaBriefcase, FaTv, FaTransgender, FaBirthdayCake, FaMapMarked, FaCross, FaImdb  } from 'react-icons/fa';
 import PersonJobCard from "@/components/PersonJobCard"
+import Link from "next/link";
 
 function calculateAge(birthdayString, deathdayString) {
     const today = new Date();
@@ -32,7 +33,6 @@ export default async function PersonPage({params}) {
     const movies = person.known_for_department === 'Acting' ? person.movie_credits.cast : person.movie_credits.crew;
     movies.sort((a, b) => b.popularity - a.popularity); //Sort movies by their popularity
     const uniqueMovieIds = Array.from(new Set(movies.map(show => show.id)));
-    // const movieList = uniqueMovieIds.map(id => movies.find(show => show.id === id));
     const movieList = person.known_for_department !== 'Acting' ? uniqueMovieIds.map(id => {
         const groupedMovies = movies.filter(movie => movie.id === id);
         const combinedJobs = groupedMovies.map(movie => movie.department).join(', ');
@@ -82,7 +82,7 @@ export default async function PersonPage({params}) {
                                 <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaBirthdayCake  className="h-5 mr-2" />Birthday:</span>
                                 {person.birthday}
                             </p>
-                            <p className="flex">
+                            <p className="mb-3 flex">
                                 <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaCross  className="h-5 mr-2" />Deathday:</span>
                                 {person.deathday} (at the age of {(calculateAge(person.birthday, person.deathday))})
                             </p>    
@@ -98,6 +98,9 @@ export default async function PersonPage({params}) {
                     <p className='mb-3 flex'>
                         <span className='font-semibold mr-1 flex items-center text-yellow-500'><FaTransgender  className="h-5 mr-2" />Gender:</span>
                         {person.gender === 1 ? 'Female' : (person.gender === 2 ? 'Male' : 'Non-binary')}
+                    </p>
+                    <p className='mb-3 flex'>
+                        <Link target="_blank" rel="noopener noreferrer" className='font-semibold mr-1 flex items-center text-yellow-500' href={'https://www.imdb.com/name/' + person.imdb_id}><FaImdb className="h-5 mr-2" />IMDb link</Link>
                     </p>
                 </div>
             </div>
